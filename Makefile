@@ -85,6 +85,7 @@ lint:
 
 .PHONY: test
 test:
+	@echo "deliberately failing..." && exit 1
 	$(DOCKER_CMD) go test ./pkg/...
 
 ################################################################################

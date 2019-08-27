@@ -5,7 +5,7 @@ GitHub App with deep integration to GitHub's new Check API.
 
 ![screenshot](docs/screenshot.png)
 
-## Installation
+### Installation
 
 The installation for this gateway is multi-part, and not particularly easy at
 the moment.
