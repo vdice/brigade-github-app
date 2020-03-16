@@ -21,7 +21,7 @@ func main() {
 	name := envOr("CHECK_NAME", "Brigade")
 	title := envOr("CHECK_TITLE", "Running Check")
 	summary := envOr("CHECK_SUMMARY", "")
-	text := envOr("CHECK_TEXT", "")
+	text := envOrFile("CHECK_TEXT", "/check-run/text", "")
 	conclusion := envOr("CHECK_CONCLUSION", "")
 	detailsURL := envOr("CHECK_DETAILS_URL", "")
 	externalID := envOr("CHECK_EXTERNAL_ID", "")
@@ -187,6 +187,17 @@ func (c *checkTool) createRun(cr check.Run) (string, error) {
 func envOr(envvar, defaultText string) string {
 	if val, ok := os.LookupEnv(envvar); ok {
 		return val
+	}
+	return defaultText
+}
+
+func envOrFile(envvar, filepath, defaultText string) string {
+	if val, ok := os.LookupEnv(envvar); ok {
+		return val
+	}
+	bytes, _ := ioutil.ReadFile(filepath)
+	if len(bytes) > 0 {
+		return string(bytes)
 	}
 	return defaultText
 }
